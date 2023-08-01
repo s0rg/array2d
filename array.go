@@ -47,12 +47,8 @@ func (a *Array[T]) Set(x, y int, v T) (ok bool) {
 
 // Iter iterates over array items.
 func (a *Array[T]) Iter(it func(x, y int, v T) bool) {
-	var x, y int
-
-	for i := 0; i < len(a.v); i++ {
-		x, y = i%a.w, i/a.w
-
-		if !it(x, y, a.v[i]) {
+	for i, v := range a.v {
+		if !it(i%a.w, i/a.w, v) {
 			return
 		}
 	}

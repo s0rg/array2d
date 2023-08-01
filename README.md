@@ -11,4 +11,65 @@
 
 
 # array2d
+
 Generic 2D array
+
+
+# features
+
+- zero-alloc
+- 100% test coverage
+
+
+# example
+
+```go
+import (
+	"fmt"
+
+	"github.com/s0rg/array2d"
+)
+
+func main() {
+    // create new 2D array with given type and dimensions (width x height)
+	a := array2d.New[int](15, 20)
+
+    // fill with ones
+    a.Fill(func() (value int) {
+        return 1
+    })
+
+    // set value at given coords
+    a.Set(1, 2, 100)
+
+    // get values
+    t1, ok := a.Get(1, 1)
+    if !ok {
+        panic("nothing at 1x1")
+    }
+
+    t2, ok := a.Get(1, 2)
+    if !ok {
+        panic("nothing at 1x2")
+    }
+
+    fmt.Println(t1, t2) // should print: 1, 100
+
+}
+```
+
+
+# benchmarks
+
+```
+goos: linux
+goarch: amd64
+pkg: github.com/s0rg/array2d
+cpu: AMD Ryzen 5 5500U with Radeon Graphics
+BenchmarkSet-12     	29237254	       39.97 ns/op	      0 B/op	      0 allocs/op
+BenchmarkGet-12     	44087026	       27.37 ns/op	      0 B/op	      0 allocs/op
+BenchmarkIter-12    	20285022	       55.28 ns/op	      0 B/op	      0 allocs/op
+BenchmarkFill-12    	19116193	       57.65 ns/op	      0 B/op	      0 allocs/op
+PASS
+ok  	github.com/s0rg/array2d	5.812s
+```
