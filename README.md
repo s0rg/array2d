@@ -25,14 +25,14 @@ Generic 2D array
 
 ```go
 import (
-	"fmt"
+    "fmt"
 
-	"github.com/s0rg/array2d"
+    "github.com/s0rg/array2d"
 )
 
 func main() {
     // create new 2D array with given type and dimensions (width x height)
-	a := array2d.New[int](15, 20)
+    a := array2d.New[int](15, 20)
 
     // fill with ones
     a.Fill(func() (value int) {
@@ -54,7 +54,6 @@ func main() {
     }
 
     fmt.Println(t1, t2) // should print: 1, 100
-
 }
 ```
 
@@ -66,10 +65,10 @@ goos: linux
 goarch: amd64
 pkg: github.com/s0rg/array2d
 cpu: AMD Ryzen 5 5500U with Radeon Graphics
-BenchmarkSet-12     	29237254	       39.97 ns/op	      0 B/op	      0 allocs/op
-BenchmarkGet-12     	44087026	       27.37 ns/op	      0 B/op	      0 allocs/op
-BenchmarkIter-12    	20285022	       55.28 ns/op	      0 B/op	      0 allocs/op
-BenchmarkFill-12    	19116193	       57.65 ns/op	      0 B/op	      0 allocs/op
+BenchmarkArray/Set-12           1000000000         1.002 ns/op        0 B/op          0 allocs/op
+BenchmarkArray/Get-12           927178446          1.250 ns/op        0 B/op          0 allocs/op
+BenchmarkArray/Iter-12          39491674           30.68 ns/op        0 B/op          0 allocs/op
+BenchmarkArray/Fill-12          20840200           56.84 ns/op        0 B/op          0 allocs/op
 PASS
-ok  	github.com/s0rg/array2d	5.812s
+ok      github.com/s0rg/array2d 4.897s
 ```
