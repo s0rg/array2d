@@ -99,80 +99,53 @@ func TestArrayIterBreak(t *testing.T) {
 	}
 }
 
-var benchmarkRand = rand.NewSource(time.Now().UnixNano())
-
-func BenchmarkSet(b *testing.B) {
+func BenchmarkArray(b *testing.B) {
 	const (
 		vmin, vmax = 0, 255
 		side       = 10
 	)
 
+	rng := rand.New(rand.NewSource(time.Now().UnixNano()))
+
+	randInt := func(a, b int) (rv int) {
+		return a + rng.Intn(b-a)
+	}
+
+	randPoint := func(n int) (x, y int) {
+		return randInt(1, n), randInt(1, n)
+	}
+
 	a := array2d.New[int](side, side)
-	r := rand.New(benchmarkRand)
+	x, y := randPoint(side)
+	v := randInt(vmin, vmax)
 
 	b.ResetTimer()
 
-	for n := 0; n < b.N; n++ {
-		x, y := randPoint(r, side)
-		v := randInt(r, vmin, vmax)
-		a.Set(x, y, v)
-	}
-}
+	b.Run("Set", func(b *testing.B) {
+		for n := 0; n < b.N; n++ {
+			a.Set(x, y, v)
+		}
+	})
 
-func BenchmarkGet(b *testing.B) {
-	const (
-		side = 10
-	)
+	b.Run("Get", func(b *testing.B) {
+		for n := 0; n < b.N; n++ {
+			_, _ = a.Get(x, y)
+		}
+	})
 
-	a := array2d.New[int](side, side)
-	r := rand.New(benchmarkRand)
+	b.Run("Iter", func(b *testing.B) {
+		for n := 0; n < b.N; n++ {
+			a.Iter(func(_, _, _ int) (next bool) {
+				return true
+			})
+		}
+	})
 
-	b.ResetTimer()
-
-	for n := 0; n < b.N; n++ {
-		x, y := randPoint(r, side)
-		_, _ = a.Get(x, y)
-	}
-}
-
-func BenchmarkIter(b *testing.B) {
-	const (
-		side = 10
-	)
-
-	a := array2d.New[int](side, side)
-	f := func(_, _, _ int) (next bool) {
-		return true
-	}
-
-	b.ResetTimer()
-
-	for n := 0; n < b.N; n++ {
-		a.Iter(f)
-	}
-}
-
-func BenchmarkFill(b *testing.B) {
-	const (
-		side = 10
-	)
-
-	a := array2d.New[int](side, side)
-	f := func() int {
-		return 1
-	}
-
-	b.ResetTimer()
-
-	for n := 0; n < b.N; n++ {
-		a.Fill(f)
-	}
-}
-
-func randPoint(r *rand.Rand, n int) (x, y int) {
-	return randInt(r, 1, n), randInt(r, 1, n)
-}
-
-func randInt(r *rand.Rand, a, b int) (rv int) {
-	return a + r.Intn(b-a)
+	b.Run("Fill", func(b *testing.B) {
+		for n := 0; n < b.N; n++ {
+			a.Fill(func() int {
+				return 1
+			})
+		}
+	})
 }
