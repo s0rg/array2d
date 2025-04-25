@@ -5,10 +5,9 @@
 
 [![CI](https://github.com/s0rg/array2d/workflows/ci/badge.svg)](https://github.com/s0rg/array2d/actions?query=workflow%3Aci)
 [![Go Report Card](https://goreportcard.com/badge/github.com/s0rg/array2d)](https://goreportcard.com/report/github.com/s0rg/array2d)
-[![Maintainability](https://api.codeclimate.com/v1/badges/54e42106bc739ae75de9/maintainability)](https://codeclimate.com/github/s0rg/array2d/maintainability)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/54e42106bc739ae75de9/test_coverage)](https://codeclimate.com/github/s0rg/array2d/test_coverage)
+[![Maintainability](https://qlty.sh/badges/07ef5116-fc80-4eea-9c04-769a32323112/maintainability.svg)](https://qlty.sh/gh/s0rg/projects/array2d)
+[![Code Coverage](https://qlty.sh/badges/07ef5116-fc80-4eea-9c04-769a32323112/test_coverage.svg)](https://qlty.sh/gh/s0rg/projects/array2d)
 ![Issues](https://img.shields.io/github/issues/s0rg/array2d)
-
 
 # array2d
 
